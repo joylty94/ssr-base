@@ -1,0 +1,173 @@
+# DESIGN.md — ssr-base 디자인 토큰 가이드
+
+> 출처: [PLAN.md](./PLAN.md) §2(기술 스택), §4-B #5(shared/ui), #12(본 문서). 이슈: #15.
+> 이 프로젝트는 도메인-불특정 **베이스**이므로 브랜드 컬러를 새로 정의하지 않고, shadcn/ui 공식 테마 중 가장 검증된 중립 팔레트(**Zinc**)를 채택한다. 색만 교체하면 소비 프로젝트별 브랜딩이 가능하도록 전부 CSS 변수(HSL)로 토큰화한다.
+
+## 0. 원칙
+
+- 모든 색은 **HSL CSS 변수**로 선언하고 Tailwind에서 `hsl(var(--token))` 형태로 참조한다(shadcn/ui 표준 방식). 컴포넌트 코드에 하드코딩된 hex를 두지 않는다.
+- 다크/라이트는 `:root`(라이트) / `.dark`(다크) 두 블록으로 같은 변수 이름을 재정의한다. `next-themes`의 `class` 전략과 맞물린다(#3).
+- 기본 테마는 `system`(브라우저 설정)이며, 아래 두 팔레트는 라이트/다크 각각의 최종값이다.
+- 타이포는 Pretendard 단일 패밀리 + 시스템 폰트 폴백(#4)을 기준으로 한다.
+- 스페이싱은 Tailwind 기본 스케일(4px 단위)을 그대로 쓴다 — 커스텀 스케일을 만들지 않는 것도 결정(간결성, 소비 프로젝트와의 충돌 방지).
+
+---
+
+## 1. 색상 토큰 (Zinc, shadcn/ui 표준)
+
+### 1.1 라이트 테마 (`:root`)
+
+| 토큰 | HSL | 용도 |
+|---|---|---|
+| `--background` | `0 0% 100%` | 페이지 배경 |
+| `--foreground` | `240 10% 3.9%` | 기본 텍스트 |
+| `--card` | `0 0% 100%` | 카드 배경 |
+| `--card-foreground` | `240 10% 3.9%` | 카드 내 텍스트 |
+| `--popover` | `0 0% 100%` | 팝오버/드롭다운 배경 |
+| `--popover-foreground` | `240 10% 3.9%` | 팝오버 텍스트 |
+| `--primary` | `240 5.9% 10%` | 주요 액션(버튼 배경 등) |
+| `--primary-foreground` | `0 0% 98%` | primary 위 텍스트 |
+| `--secondary` | `240 4.8% 95.9%` | 보조 배경 |
+| `--secondary-foreground` | `240 5.9% 10%` | secondary 위 텍스트 |
+| `--muted` | `240 4.8% 95.9%` | 비활성/저강조 배경 |
+| `--muted-foreground` | `240 3.8% 46.1%` | 저강조 텍스트(설명, 캡션) |
+| `--accent` | `240 4.8% 95.9%` | 호버/선택 배경 |
+| `--accent-foreground` | `240 5.9% 10%` | accent 위 텍스트 |
+| `--destructive` | `0 84.2% 60.2%` | 삭제/위험 액션 배경 |
+| `--destructive-foreground` | `0 0% 98%` | destructive 위 텍스트 |
+| `--border` | `240 5.9% 90%` | 구분선, 카드/인풋 테두리 |
+| `--input` | `240 5.9% 90%` | 인풋 테두리(= border와 동일) |
+| `--ring` | `240 5.9% 10%` | 포커스 링 |
+
+### 1.2 다크 테마 (`.dark`)
+
+| 토큰 | HSL | 용도 |
+|---|---|---|
+| `--background` | `240 10% 3.9%` | 페이지 배경 |
+| `--foreground` | `0 0% 98%` | 기본 텍스트 |
+| `--card` | `240 10% 3.9%` | 카드 배경 |
+| `--card-foreground` | `0 0% 98%` | 카드 내 텍스트 |
+| `--popover` | `240 10% 3.9%` | 팝오버 배경 |
+| `--popover-foreground` | `0 0% 98%` | 팝오버 텍스트 |
+| `--primary` | `0 0% 98%` | 주요 액션 배경 |
+| `--primary-foreground` | `240 5.9% 10%` | primary 위 텍스트 |
+| `--secondary` | `240 3.7% 15.9%` | 보조 배경 |
+| `--secondary-foreground` | `0 0% 98%` | secondary 위 텍스트 |
+| `--muted` | `240 3.7% 15.9%` | 비활성/저강조 배경 |
+| `--muted-foreground` | `240 5% 64.9%` | 저강조 텍스트 |
+| `--accent` | `240 3.7% 15.9%` | 호버/선택 배경 |
+| `--accent-foreground` | `0 0% 98%` | accent 위 텍스트 |
+| `--destructive` | `0 62.8% 30.6%` | 삭제/위험 액션 배경 |
+| `--destructive-foreground` | `0 0% 98%` | destructive 위 텍스트 |
+| `--border` | `240 3.7% 15.9%` | 구분선, 테두리 |
+| `--input` | `240 3.7% 15.9%` | 인풋 테두리 |
+| `--ring` | `240 4.9% 83.9%` | 포커스 링 |
+
+### 1.3 frontend 구현 참조 (globals.css, #3/#5 담당)
+
+```css
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 240 10% 3.9%;
+    /* ... 위 표 그대로 ... */
+  }
+  .dark {
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
+    /* ... 위 표 그대로 ... */
+  }
+}
+```
+
+`tailwind.config.ts`에서는 `colors.background: "hsl(var(--background))"` 식으로 매핑(shadcn/ui CLI 기본 산출물과 동일). 이 문서는 값의 출처이며, 실제 파일 작성은 #3(테마 시스템)/#5(shared/ui) 담당(frontend)의 몫이다.
+
+---
+
+## 2. 타이포그래피 토큰
+
+- **폰트 패밀리**: Pretendard (CDN), 폴백 `-apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif` (CDN 차단 시에도 레이아웃 붕괴 방지, #4 DoD와 일치)
+- **폰트 웨이트**: Regular 400(본문), Medium 500(강조 텍스트), SemiBold 600(카드 타이틀), Bold 700(헤딩)
+
+| 토큰 | 크기 / 줄간격 | 웨이트 | 용도 |
+|---|---|---|---|
+| `text-display` | 36px / 44px (`text-4xl`) | 700 | 랜딩 히어로 타이틀 |
+| `text-h1` | 30px / 38px (`text-3xl`) | 700 | 페이지 타이틀 |
+| `text-h2` | 24px / 32px (`text-2xl`) | 600 | 섹션 타이틀 |
+| `text-h3` | 20px / 28px (`text-xl`) | 600 | 카드/위젯 타이틀 |
+| `text-body` | 16px / 24px (`text-base`) | 400 | 본문 기본 |
+| `text-body-sm` | 14px / 20px (`text-sm`) | 400 | 보조 본문, 폼 라벨 |
+| `text-caption` | 12px / 16px (`text-xs`) | 400 | 캡션, 타임스탬프, 메타 정보 |
+
+모바일 기준값이며, PC 반응형에서 `text-display`/`text-h1`은 한 단계 위 스케일(`text-5xl`/`text-4xl`)로 확대 가능 — 컴포넌트 구현 시 breakpoint 프리픽스(`md:text-5xl`)로 처리.
+
+---
+
+## 3. 스페이싱 & 레이아웃 토큰
+
+Tailwind 기본 스케일(4px 단위)을 그대로 사용한다. 별도 커스텀 스케일 없음.
+
+| 토큰 | 값 | 용도 |
+|---|---|---|
+| `space-1` | 4px | 아이콘-텍스트 간격 |
+| `space-2` | 8px | 인풋 내부 패딩(세로), 인접 요소 간격 |
+| `space-3` | 12px | 버튼 내부 패딩(세로) |
+| `space-4` | 16px | 카드 내부 패딩, 컴포넌트 기본 간격 |
+| `space-6` | 24px | 섹션 내 블록 간격 |
+| `space-8` | 32px | 카드 간 그리드 gap |
+| `space-12` | 48px | 섹션 간 간격(모바일) |
+| `space-16` | 64px | 섹션 간 간격(PC) |
+
+### 반응형 브레이크포인트 (Tailwind 기본값)
+
+| 토큰 | 값 | 대상 |
+|---|---|---|
+| `sm` | 640px | 큰 모바일 |
+| `md` | 768px | 태블릿 |
+| `lg` | 1024px | 노트북/PC 기준선 (요건상 "모바일/PC" 2분기의 경계로 사용) |
+| `xl` | 1280px | 와이드 PC |
+| `2xl` | 1536px | 초광폭 |
+
+---
+
+## 4. 접근성(WCAG) 대비 검증
+
+WCAG 2.1 기준: 일반 텍스트 **4.5:1** 이상(AA), 큰 텍스트(18px+ 또는 14px+bold)·UI 컴포넌트 경계는 **3:1** 이상. 아래는 위 §1 팔레트에서 실제로 함께 쓰이는 전경/배경 조합의 상대 휘도(relative luminance) 계산 결과다(WCAG 공식: `(L1+0.05)/(L2+0.05)`).
+
+### 4.1 라이트 테마
+
+| 조합 | 대비율 | 기준 | 결과 |
+|---|---|---|---|
+| `foreground` on `background` | 19.9 : 1 | AA 4.5 | ✅ 통과 (여유 큼) |
+| `primary-foreground` on `primary` | 16.9 : 1 | AA 4.5 | ✅ 통과 |
+| `muted-foreground` on `background` | 4.83 : 1 | AA 4.5 | ⚠️ **통과, 그러나 여유 없음** |
+| `destructive-foreground` on `destructive` | 3.60 : 1 | AA 4.5(일반 텍스트) | ❌ **일반 텍스트 기준 미달** (큰 텍스트 3:1 기준은 통과) |
+| `border` on `background` (인풋/카드 테두리) | 1.27 : 1 | UI 요소 3:1 | ❌ **미달** |
+
+### 4.2 다크 테마
+
+| 조합 | 대비율 | 기준 | 결과 |
+|---|---|---|---|
+| `foreground` on `background` | 19.05 : 1 | AA 4.5 | ✅ 통과 |
+| `primary-foreground` on `primary` | 16.9 : 1 (라이트와 대칭 구조) | AA 4.5 | ✅ 통과 |
+| `muted-foreground` on `background` | 7.76 : 1 | AA 4.5 | ✅ 통과 (라이트보다 여유 큼) |
+| `destructive-foreground` on `destructive` | 9.59 : 1 | AA 4.5 | ✅ 통과 |
+| `ring` on `background` (포커스 링 가시성) | 13.46 : 1 | 3:1 | ✅ 통과 |
+
+### 4.3 발견된 문제 & 권고 (frontend #3/#5 반영 요청)
+
+1. **`border`/`input` 라이트 테마 대비 1.27:1 — 미달.** shadcn/ui 기본 Zinc 테마의 알려진 특성으로, 순수 구분선(장식)에는 문제없지만 **인풋 필드처럼 경계 자체가 상태 정보(포커스 전/후, 활성/비활성)를 전달하는 곳**에는 부족하다. 권고: 인풋 컴포넌트는 테두리만으로 상태를 구분하지 말고 `ring`(포커스 시 `--ring`, 13.5:1 다크 기준 확인됨) + `shadow-sm` 등 보조 신호를 함께 사용. Button/Card 같은 순수 장식용 테두리는 현재 값 유지 가능.
+2. **`destructive-foreground` on `destructive`(라이트) 3.60:1 — 일반 텍스트 AA 미달.** "삭제" 같은 짧은 라벨은 보통 `text-sm`(14px) 이상 굵기가 아니라면 큰 텍스트 예외(3:1)에 해당하지 않을 수 있다. 권고: 버튼 텍스트에 `font-medium`(500) 이상 적용해 "굵은 14px+" 대분류로 편입하거나, 그래도 불안하면 `destructive` 라이트 값의 L을 60.2% → 54% 선으로 낮춰 대비를 4.5:1 이상으로 올리는 옵션을 frontend와 협의. 다크 테마는 문제 없음(9.59:1).
+3. **`muted-foreground`(라이트) 4.83:1 — 통과하지만 여유가 거의 없다(0.33 마진).** 브라우저 줌/서브픽셀 렌더링 차이로 실측이 흔들릴 수 있는 구간이므로, 캡션/타임스탬프 등 저강조 텍스트를 **12px 미만으로 축소하지 말 것**을 권고(§2 `text-caption` 12px는 안전선).
+
+---
+
+## 5. shadcn/ui 컴포넌트 범위 (PLAN.md §2 재확인)
+
+Button, Input, Card, Dialog, DropdownMenu, Badge, Skeleton, Separator — 위 색 토큰을 그대로 상속받아 별도 커스텀 없이 동작해야 한다. 신규 컴포넌트 추가 시 §1 토큰 이름을 그대로 재사용하고, 새 색상 변수를 만들지 말 것(디자인 시스템 일관성 원칙).
+
+---
+
+## 변경 이력
+
+- 2026-07-29: 최초 작성 (#15). Zinc 팔레트 채택, WCAG 대비 실측(§4) 포함.
