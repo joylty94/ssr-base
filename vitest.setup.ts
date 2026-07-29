@@ -1,4 +1,13 @@
+import { vi } from "vitest";
 import "@testing-library/jest-dom/vitest";
+
+// next/font/google은 Next.js 빌드(SWC)의 컴파일타임 매크로에 의존하므로 순수 Vite/Vitest
+// 환경에서는 호출조차 불가능하다(런타임 함수가 아님). layout.tsx 등을 유닛 테스트에서
+// 임포트할 수 있도록 최소한의 폰트 객체 형태({variable, className})로 모킹한다.
+vi.mock("next/font/google", () => ({
+  Geist: () => ({ variable: "--font-geist-sans", className: "" }),
+  Geist_Mono: () => ({ variable: "--font-geist-mono", className: "" }),
+}));
 
 // jsdom은 window.matchMedia를 구현하지 않으므로, next-themes 등 시스템 테마 감지에
 // 의존하는 코드가 테스트에서 동작할 수 있도록 최소 모킹을 제공한다.
