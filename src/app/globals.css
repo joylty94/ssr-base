@@ -1,4 +1,7 @@
 @import "tailwindcss";
+/* Pretendard(한글) CDN. @import는 CSS 스펙상 다른 규칙보다 앞에 와야 하므로
+   tailwindcss 다음, 그 외 규칙보다 먼저 선언한다. */
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard-dynamic-subset.css");
 
 :root {
   --background: #ffffff;
@@ -8,19 +11,24 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  /* Pretendard를 최우선으로 하고, CDN 로드 실패/차단 시에도 레이아웃이 깨지지 않도록
+     플랫폼별 한글 시스템 폰트(Apple SD Gothic Neo/Malgun Gothic)와 일반 산세리프로 폴백한다. */
+  --font-sans: "Pretendard", var(--font-geist-sans), -apple-system,
+    BlinkMacSystemFont, "Apple SD Gothic Neo", "Segoe UI", Roboto,
+    "Malgun Gothic", "Helvetica Neue", Arial, sans-serif;
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* next-themes가 <html class="dark">를 부여하는 방식(attribute="class")으로 다크 테마를
+   전환한다. "system" 기본값도 next-themes가 브라우저 선호를 감지해 이 class를 붙이므로,
+   실제 색상 전환은 미디어쿼리가 아니라 이 클래스 선택자를 기준으로 이뤄진다. */
+.dark {
+  --background: #0a0a0a;
+  --foreground: #ededed;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
 }
