@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it } from "vitest";
 import { formatDate, isValidDate } from "../date";
 
 describe("formatDate", () => {
@@ -12,6 +12,22 @@ describe("formatDate", () => {
 
   it("잘못된 날짜 입력에는 빈 문자열을 반환한다", () => {
     expect(formatDate("invalid-date")).toBe("");
+  });
+
+  it("존재하지 않는 달력 날짜(2월 30일 등)는 빈 문자열을 반환한다", () => {
+    expect(formatDate("2026-02-30")).toBe("");
+  });
+
+  describe("UTC보다 뒤처진 타임존에서도(QA 회귀)", () => {
+    const originalTz = process.env.TZ;
+    afterEach(() => {
+      process.env.TZ = originalTz;
+    });
+
+    it("date-only 문자열('YYYY-MM-DD')이 하루 밀리지 않는다", () => {
+      process.env.TZ = "America/New_York";
+      expect(formatDate("2026-07-29")).toBe("2026-07-29");
+    });
   });
 });
 
