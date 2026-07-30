@@ -22,7 +22,10 @@ check("package.json 존재", existsSync(pkgPath));
 if (existsSync(pkgPath)) {
   const pkg = readJson(pkgPath);
   for (const script of ["dev", "build", "lint", "test", "start"]) {
-    check(`package.json scripts.${script} 존재`, Boolean(pkg.scripts?.[script]));
+    check(
+      `package.json scripts.${script} 존재`,
+      Boolean(pkg.scripts?.[script]),
+    );
   }
 }
 
@@ -32,21 +35,33 @@ check("tsconfig.json 존재", existsSync(tsconfigPath));
 if (existsSync(tsconfigPath)) {
   const tsconfig = readJson(tsconfigPath);
   const paths = tsconfig.compilerOptions?.paths ?? {};
-  check('tsconfig paths["@/*"] 존재', Array.isArray(paths["@/*"]) && paths["@/*"].length > 0);
+  check(
+    'tsconfig paths["@/*"] 존재',
+    Array.isArray(paths["@/*"]) && paths["@/*"].length > 0,
+  );
 }
 
 // 3) Tailwind 설정 존재 (v4는 postcss.config 경유 가능)
-const tailwindCandidates = ["tailwind.config.ts", "tailwind.config.js", "postcss.config.mjs", "postcss.config.js"];
+const tailwindCandidates = [
+  "tailwind.config.ts",
+  "tailwind.config.js",
+  "postcss.config.mjs",
+  "postcss.config.js",
+];
 check(
   "Tailwind 설정 파일 존재",
-  tailwindCandidates.some((f) => existsSync(join(root, f)))
+  tailwindCandidates.some((f) => existsSync(join(root, f))),
 );
 
 // 4) Next.js 설정
-const nextConfigCandidates = ["next.config.ts", "next.config.js", "next.config.mjs"];
+const nextConfigCandidates = [
+  "next.config.ts",
+  "next.config.js",
+  "next.config.mjs",
+];
 check(
   "next.config 파일 존재",
-  nextConfigCandidates.some((f) => existsSync(join(root, f)))
+  nextConfigCandidates.some((f) => existsSync(join(root, f))),
 );
 
 // 5) FSD 폴더 골격 (src/ 아래)

@@ -20,7 +20,7 @@ describe("Button", () => {
     render(
       <Button disabled onClick={onClick}>
         확인
-      </Button>
+      </Button>,
     );
 
     await user.click(screen.getByRole("button", { name: "확인" }));
@@ -29,7 +29,11 @@ describe("Button", () => {
   });
 
   it("variant/size prop에 따라 다른 클래스가 적용된다", () => {
-    render(<Button variant="destructive" size="lg">삭제</Button>);
+    render(
+      <Button variant="destructive" size="lg">
+        삭제
+      </Button>,
+    );
     const button = screen.getByRole("button", { name: "삭제" });
     expect(button.className).toMatch(/destructive/);
   });

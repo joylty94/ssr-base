@@ -8,7 +8,7 @@ export function capitalize(value: string): string {
 export function truncate(
   value: string,
   maxLength: number,
-  suffix = "..."
+  suffix = "...",
 ): string {
   if (value.length <= maxLength) return value;
   return value.slice(0, maxLength) + suffix;

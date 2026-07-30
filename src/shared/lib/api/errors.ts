@@ -28,7 +28,10 @@ function extractServerMessage(error: AxiosError): string | undefined {
 }
 
 function resolveErrorCode(error: AxiosError): ApiErrorCode {
-  if (error.code === "ECONNABORTED" || error.message?.toLowerCase().includes("timeout")) {
+  if (
+    error.code === "ECONNABORTED" ||
+    error.message?.toLowerCase().includes("timeout")
+  ) {
     return "TIMEOUT";
   }
   if (!error.response) {

@@ -1,0 +1,14 @@
+# 빌드/의존성 산출물
+node_modules
+.next
+out
+build
+coverage
+
+# 잠금/생성 파일
+package-lock.json
+*.tsbuildinfo
+next-env.d.ts
+
+# 정적 에셋
+public

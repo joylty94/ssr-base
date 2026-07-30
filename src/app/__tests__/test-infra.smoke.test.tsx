@@ -8,9 +8,7 @@ import { useState } from "react";
 
 function Counter() {
   const [count, setCount] = useState(0);
-  return (
-    <button onClick={() => setCount((c) => c + 1)}>count: {count}</button>
-  );
+  return <button onClick={() => setCount((c) => c + 1)}>count: {count}</button>;
 }
 
 describe("test infra smoke test", () => {
@@ -24,7 +22,7 @@ describe("test infra smoke test", () => {
     await user.click(button);
 
     expect(
-      screen.getByRole("button", { name: "count: 1" })
+      screen.getByRole("button", { name: "count: 1" }),
     ).toBeInTheDocument();
   });
 });

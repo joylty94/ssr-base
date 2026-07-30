@@ -19,7 +19,7 @@ describe("Dialog", () => {
           <DialogTitle>제목</DialogTitle>
           <DialogDescription>설명</DialogDescription>
         </DialogContent>
-      </Dialog>
+      </Dialog>,
     );
 
     expect(screen.queryByText("제목")).not.toBeInTheDocument();

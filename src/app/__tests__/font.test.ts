@@ -6,13 +6,13 @@ import { describe, expect, it } from "vitest";
 
 const globalsCss = readFileSync(
   join(import.meta.dirname, "../globals.css"),
-  "utf-8"
+  "utf-8",
 );
 
 describe("Pretendard 폰트", () => {
   it("Pretendard CDN 스타일시트를 @import로 로드한다", () => {
     expect(globalsCss).toMatch(
-      /@import\s+url\(["']?https:\/\/cdn\.jsdelivr\.net\/gh\/orioncactus\/pretendard/
+      /@import\s+url\(["']?https:\/\/cdn\.jsdelivr\.net\/gh\/orioncactus\/pretendard/,
     );
   });
 

@@ -28,7 +28,7 @@ export function createApiClient(config: ApiClientConfig = {}): AxiosInstance {
 
   instance.interceptors.response.use(
     (response) => response,
-    (error) => Promise.reject(normalizeApiError(error))
+    (error) => Promise.reject(normalizeApiError(error)),
   );
 
   return instance;

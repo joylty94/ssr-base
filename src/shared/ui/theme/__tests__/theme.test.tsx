@@ -16,7 +16,7 @@ describe("theme system", () => {
     render(
       <ThemeProvider>
         <ThemeToggle />
-      </ThemeProvider>
+      </ThemeProvider>,
     );
 
     await waitFor(() => {
@@ -29,7 +29,7 @@ describe("theme system", () => {
     render(
       <ThemeProvider>
         <ThemeToggle />
-      </ThemeProvider>
+      </ThemeProvider>,
     );
 
     const toggle = await screen.findByRole("button");

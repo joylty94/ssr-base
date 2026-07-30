@@ -17,51 +17,51 @@
 
 ### 1.1 라이트 테마 (`:root`)
 
-| 토큰 | HSL | 용도 |
-|---|---|---|
-| `--background` | `0 0% 100%` | 페이지 배경 |
-| `--foreground` | `240 10% 3.9%` | 기본 텍스트 |
-| `--card` | `0 0% 100%` | 카드 배경 |
-| `--card-foreground` | `240 10% 3.9%` | 카드 내 텍스트 |
-| `--popover` | `0 0% 100%` | 팝오버/드롭다운 배경 |
-| `--popover-foreground` | `240 10% 3.9%` | 팝오버 텍스트 |
-| `--primary` | `240 5.9% 10%` | 주요 액션(버튼 배경 등) |
-| `--primary-foreground` | `0 0% 98%` | primary 위 텍스트 |
-| `--secondary` | `240 4.8% 95.9%` | 보조 배경 |
-| `--secondary-foreground` | `240 5.9% 10%` | secondary 위 텍스트 |
-| `--muted` | `240 4.8% 95.9%` | 비활성/저강조 배경 |
-| `--muted-foreground` | `240 3.8% 46.1%` | 저강조 텍스트(설명, 캡션) |
-| `--accent` | `240 4.8% 95.9%` | 호버/선택 배경 |
-| `--accent-foreground` | `240 5.9% 10%` | accent 위 텍스트 |
-| `--destructive` | `0 84.2% 60.2%` | 삭제/위험 액션 배경 |
-| `--destructive-foreground` | `0 0% 98%` | destructive 위 텍스트 |
-| `--border` | `240 5.9% 90%` | 구분선, 카드/인풋 테두리 |
-| `--input` | `240 5.9% 90%` | 인풋 테두리(= border와 동일) |
-| `--ring` | `240 5.9% 10%` | 포커스 링 |
+| 토큰                       | HSL              | 용도                         |
+| -------------------------- | ---------------- | ---------------------------- |
+| `--background`             | `0 0% 100%`      | 페이지 배경                  |
+| `--foreground`             | `240 10% 3.9%`   | 기본 텍스트                  |
+| `--card`                   | `0 0% 100%`      | 카드 배경                    |
+| `--card-foreground`        | `240 10% 3.9%`   | 카드 내 텍스트               |
+| `--popover`                | `0 0% 100%`      | 팝오버/드롭다운 배경         |
+| `--popover-foreground`     | `240 10% 3.9%`   | 팝오버 텍스트                |
+| `--primary`                | `240 5.9% 10%`   | 주요 액션(버튼 배경 등)      |
+| `--primary-foreground`     | `0 0% 98%`       | primary 위 텍스트            |
+| `--secondary`              | `240 4.8% 95.9%` | 보조 배경                    |
+| `--secondary-foreground`   | `240 5.9% 10%`   | secondary 위 텍스트          |
+| `--muted`                  | `240 4.8% 95.9%` | 비활성/저강조 배경           |
+| `--muted-foreground`       | `240 3.8% 46.1%` | 저강조 텍스트(설명, 캡션)    |
+| `--accent`                 | `240 4.8% 95.9%` | 호버/선택 배경               |
+| `--accent-foreground`      | `240 5.9% 10%`   | accent 위 텍스트             |
+| `--destructive`            | `0 84.2% 60.2%`  | 삭제/위험 액션 배경          |
+| `--destructive-foreground` | `0 0% 98%`       | destructive 위 텍스트        |
+| `--border`                 | `240 5.9% 90%`   | 구분선, 카드/인풋 테두리     |
+| `--input`                  | `240 5.9% 90%`   | 인풋 테두리(= border와 동일) |
+| `--ring`                   | `240 5.9% 10%`   | 포커스 링                    |
 
 ### 1.2 다크 테마 (`.dark`)
 
-| 토큰 | HSL | 용도 |
-|---|---|---|
-| `--background` | `240 10% 3.9%` | 페이지 배경 |
-| `--foreground` | `0 0% 98%` | 기본 텍스트 |
-| `--card` | `240 10% 3.9%` | 카드 배경 |
-| `--card-foreground` | `0 0% 98%` | 카드 내 텍스트 |
-| `--popover` | `240 10% 3.9%` | 팝오버 배경 |
-| `--popover-foreground` | `0 0% 98%` | 팝오버 텍스트 |
-| `--primary` | `0 0% 98%` | 주요 액션 배경 |
-| `--primary-foreground` | `240 5.9% 10%` | primary 위 텍스트 |
-| `--secondary` | `240 3.7% 15.9%` | 보조 배경 |
-| `--secondary-foreground` | `0 0% 98%` | secondary 위 텍스트 |
-| `--muted` | `240 3.7% 15.9%` | 비활성/저강조 배경 |
-| `--muted-foreground` | `240 5% 64.9%` | 저강조 텍스트 |
-| `--accent` | `240 3.7% 15.9%` | 호버/선택 배경 |
-| `--accent-foreground` | `0 0% 98%` | accent 위 텍스트 |
-| `--destructive` | `0 62.8% 30.6%` | 삭제/위험 액션 배경 |
-| `--destructive-foreground` | `0 0% 98%` | destructive 위 텍스트 |
-| `--border` | `240 3.7% 15.9%` | 구분선, 테두리 |
-| `--input` | `240 3.7% 15.9%` | 인풋 테두리 |
-| `--ring` | `240 4.9% 83.9%` | 포커스 링 |
+| 토큰                       | HSL              | 용도                  |
+| -------------------------- | ---------------- | --------------------- |
+| `--background`             | `240 10% 3.9%`   | 페이지 배경           |
+| `--foreground`             | `0 0% 98%`       | 기본 텍스트           |
+| `--card`                   | `240 10% 3.9%`   | 카드 배경             |
+| `--card-foreground`        | `0 0% 98%`       | 카드 내 텍스트        |
+| `--popover`                | `240 10% 3.9%`   | 팝오버 배경           |
+| `--popover-foreground`     | `0 0% 98%`       | 팝오버 텍스트         |
+| `--primary`                | `0 0% 98%`       | 주요 액션 배경        |
+| `--primary-foreground`     | `240 5.9% 10%`   | primary 위 텍스트     |
+| `--secondary`              | `240 3.7% 15.9%` | 보조 배경             |
+| `--secondary-foreground`   | `0 0% 98%`       | secondary 위 텍스트   |
+| `--muted`                  | `240 3.7% 15.9%` | 비활성/저강조 배경    |
+| `--muted-foreground`       | `240 5% 64.9%`   | 저강조 텍스트         |
+| `--accent`                 | `240 3.7% 15.9%` | 호버/선택 배경        |
+| `--accent-foreground`      | `0 0% 98%`       | accent 위 텍스트      |
+| `--destructive`            | `0 62.8% 30.6%`  | 삭제/위험 액션 배경   |
+| `--destructive-foreground` | `0 0% 98%`       | destructive 위 텍스트 |
+| `--border`                 | `240 3.7% 15.9%` | 구분선, 테두리        |
+| `--input`                  | `240 3.7% 15.9%` | 인풋 테두리           |
+| `--ring`                   | `240 4.9% 83.9%` | 포커스 링             |
 
 ### 1.3 frontend 구현 참조 (globals.css, #3/#5 담당)
 
@@ -89,15 +89,15 @@
 - **폰트 패밀리**: Pretendard (CDN), 폴백 `-apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif` (CDN 차단 시에도 레이아웃 붕괴 방지, #4 DoD와 일치)
 - **폰트 웨이트**: Regular 400(본문), Medium 500(강조 텍스트), SemiBold 600(카드 타이틀), Bold 700(헤딩)
 
-| 토큰 | 크기 / 줄간격 | 웨이트 | 용도 |
-|---|---|---|---|
-| `text-display` | 36px / 44px (`text-4xl`) | 700 | 랜딩 히어로 타이틀 |
-| `text-h1` | 30px / 38px (`text-3xl`) | 700 | 페이지 타이틀 |
-| `text-h2` | 24px / 32px (`text-2xl`) | 600 | 섹션 타이틀 |
-| `text-h3` | 20px / 28px (`text-xl`) | 600 | 카드/위젯 타이틀 |
-| `text-body` | 16px / 24px (`text-base`) | 400 | 본문 기본 |
-| `text-body-sm` | 14px / 20px (`text-sm`) | 400 | 보조 본문, 폼 라벨 |
-| `text-caption` | 12px / 16px (`text-xs`) | 400 | 캡션, 타임스탬프, 메타 정보 |
+| 토큰           | 크기 / 줄간격             | 웨이트 | 용도                        |
+| -------------- | ------------------------- | ------ | --------------------------- |
+| `text-display` | 36px / 44px (`text-4xl`)  | 700    | 랜딩 히어로 타이틀          |
+| `text-h1`      | 30px / 38px (`text-3xl`)  | 700    | 페이지 타이틀               |
+| `text-h2`      | 24px / 32px (`text-2xl`)  | 600    | 섹션 타이틀                 |
+| `text-h3`      | 20px / 28px (`text-xl`)   | 600    | 카드/위젯 타이틀            |
+| `text-body`    | 16px / 24px (`text-base`) | 400    | 본문 기본                   |
+| `text-body-sm` | 14px / 20px (`text-sm`)   | 400    | 보조 본문, 폼 라벨          |
+| `text-caption` | 12px / 16px (`text-xs`)   | 400    | 캡션, 타임스탬프, 메타 정보 |
 
 모바일 기준값이며, PC 반응형에서 `text-display`/`text-h1`은 한 단계 위 스케일(`text-5xl`/`text-4xl`)로 확대 가능 — 컴포넌트 구현 시 breakpoint 프리픽스(`md:text-5xl`)로 처리.
 
@@ -107,26 +107,26 @@
 
 Tailwind 기본 스케일(4px 단위)을 그대로 사용한다. 별도 커스텀 스케일 없음.
 
-| 토큰 | 값 | 용도 |
-|---|---|---|
-| `space-1` | 4px | 아이콘-텍스트 간격 |
-| `space-2` | 8px | 인풋 내부 패딩(세로), 인접 요소 간격 |
-| `space-3` | 12px | 버튼 내부 패딩(세로) |
-| `space-4` | 16px | 카드 내부 패딩, 컴포넌트 기본 간격 |
-| `space-6` | 24px | 섹션 내 블록 간격 |
-| `space-8` | 32px | 카드 간 그리드 gap |
-| `space-12` | 48px | 섹션 간 간격(모바일) |
-| `space-16` | 64px | 섹션 간 간격(PC) |
+| 토큰       | 값   | 용도                                 |
+| ---------- | ---- | ------------------------------------ |
+| `space-1`  | 4px  | 아이콘-텍스트 간격                   |
+| `space-2`  | 8px  | 인풋 내부 패딩(세로), 인접 요소 간격 |
+| `space-3`  | 12px | 버튼 내부 패딩(세로)                 |
+| `space-4`  | 16px | 카드 내부 패딩, 컴포넌트 기본 간격   |
+| `space-6`  | 24px | 섹션 내 블록 간격                    |
+| `space-8`  | 32px | 카드 간 그리드 gap                   |
+| `space-12` | 48px | 섹션 간 간격(모바일)                 |
+| `space-16` | 64px | 섹션 간 간격(PC)                     |
 
 ### 반응형 브레이크포인트 (Tailwind 기본값)
 
-| 토큰 | 값 | 대상 |
-|---|---|---|
-| `sm` | 640px | 큰 모바일 |
-| `md` | 768px | 태블릿 |
-| `lg` | 1024px | 노트북/PC 기준선 (요건상 "모바일/PC" 2분기의 경계로 사용) |
-| `xl` | 1280px | 와이드 PC |
-| `2xl` | 1536px | 초광폭 |
+| 토큰  | 값     | 대상                                                      |
+| ----- | ------ | --------------------------------------------------------- |
+| `sm`  | 640px  | 큰 모바일                                                 |
+| `md`  | 768px  | 태블릿                                                    |
+| `lg`  | 1024px | 노트북/PC 기준선 (요건상 "모바일/PC" 2분기의 경계로 사용) |
+| `xl`  | 1280px | 와이드 PC                                                 |
+| `2xl` | 1536px | 초광폭                                                    |
 
 ---
 
@@ -136,23 +136,23 @@ WCAG 2.1 기준: 일반 텍스트 **4.5:1** 이상(AA), 큰 텍스트(18px+ 또�
 
 ### 4.1 라이트 테마
 
-| 조합 | 대비율 | 기준 | 결과 |
-|---|---|---|---|
-| `foreground` on `background` | 19.9 : 1 | AA 4.5 | ✅ 통과 (여유 큼) |
-| `primary-foreground` on `primary` | 16.9 : 1 | AA 4.5 | ✅ 통과 |
-| `muted-foreground` on `background` | 4.83 : 1 | AA 4.5 | ⚠️ **통과, 그러나 여유 없음** |
-| `destructive-foreground` on `destructive` | 3.60 : 1 | AA 4.5(일반 텍스트) | ❌ **일반 텍스트 기준 미달** (큰 텍스트 3:1 기준은 통과) |
-| `border` on `background` (인풋/카드 테두리) | 1.27 : 1 | UI 요소 3:1 | ❌ **미달** |
+| 조합                                        | 대비율   | 기준                | 결과                                                     |
+| ------------------------------------------- | -------- | ------------------- | -------------------------------------------------------- |
+| `foreground` on `background`                | 19.9 : 1 | AA 4.5              | ✅ 통과 (여유 큼)                                        |
+| `primary-foreground` on `primary`           | 16.9 : 1 | AA 4.5              | ✅ 통과                                                  |
+| `muted-foreground` on `background`          | 4.83 : 1 | AA 4.5              | ⚠️ **통과, 그러나 여유 없음**                            |
+| `destructive-foreground` on `destructive`   | 3.60 : 1 | AA 4.5(일반 텍스트) | ❌ **일반 텍스트 기준 미달** (큰 텍스트 3:1 기준은 통과) |
+| `border` on `background` (인풋/카드 테두리) | 1.27 : 1 | UI 요소 3:1         | ❌ **미달**                                              |
 
 ### 4.2 다크 테마
 
-| 조합 | 대비율 | 기준 | 결과 |
-|---|---|---|---|
-| `foreground` on `background` | 19.05 : 1 | AA 4.5 | ✅ 통과 |
-| `primary-foreground` on `primary` | 16.9 : 1 (라이트와 대칭 구조) | AA 4.5 | ✅ 통과 |
-| `muted-foreground` on `background` | 7.76 : 1 | AA 4.5 | ✅ 통과 (라이트보다 여유 큼) |
-| `destructive-foreground` on `destructive` | 9.59 : 1 | AA 4.5 | ✅ 통과 |
-| `ring` on `background` (포커스 링 가시성) | 13.46 : 1 | 3:1 | ✅ 통과 |
+| 조합                                      | 대비율                        | 기준   | 결과                         |
+| ----------------------------------------- | ----------------------------- | ------ | ---------------------------- |
+| `foreground` on `background`              | 19.05 : 1                     | AA 4.5 | ✅ 통과                      |
+| `primary-foreground` on `primary`         | 16.9 : 1 (라이트와 대칭 구조) | AA 4.5 | ✅ 통과                      |
+| `muted-foreground` on `background`        | 7.76 : 1                      | AA 4.5 | ✅ 통과 (라이트보다 여유 큼) |
+| `destructive-foreground` on `destructive` | 9.59 : 1                      | AA 4.5 | ✅ 통과                      |
+| `ring` on `background` (포커스 링 가시성) | 13.46 : 1                     | 3:1    | ✅ 통과                      |
 
 ### 4.3 발견된 문제 & 권고 (frontend #3/#5 반영 요청)
 

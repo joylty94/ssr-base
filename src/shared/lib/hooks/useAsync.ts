@@ -15,7 +15,7 @@ export interface UseAsyncResult<T> {
  */
 export function useAsync<T>(
   asyncFunction: () => Promise<T>,
-  immediate = true
+  immediate = true,
 ): UseAsyncResult<T> {
   const [data, setData] = useState<T | null>(null);
   const [error, setError] = useState<Error | null>(null);

@@ -37,8 +37,9 @@ export default function ShowcasePage() {
     <main className="flex flex-col gap-10 py-10">
       <div>
         <h1 className="text-3xl font-bold tracking-tight">Showcase</h1>
-        <p className="mt-2 text-muted-foreground">
-          이 베이스 프로젝트의 shared/ui 컴포넌트와 FSD 예시 슬라이스를 모아 보여줍니다.
+        <p className="text-muted-foreground mt-2">
+          이 베이스 프로젝트의 shared/ui 컴포넌트와 FSD 예시 슬라이스를 모아
+          보여줍니다.
         </p>
       </div>
 
@@ -126,7 +127,8 @@ export default function ShowcasePage() {
       <section className="flex flex-col gap-4">
         <h2 className="text-xl font-semibold">FSD 예시 슬라이스</h2>
         <p className="text-muted-foreground">
-          entities/greeting → features/greeting → widgets/GreetingWidget 체인 데모(#13)
+          entities/greeting → features/greeting → widgets/GreetingWidget 체인
+          데모(#13)
         </p>
         <div className="max-w-sm">
           <GreetingWidget />

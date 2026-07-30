@@ -1,4 +1,7 @@
-import { GreetingMessage, type GreetingMessageProps } from "@/features/greeting";
+import {
+  GreetingMessage,
+  type GreetingMessageProps,
+} from "@/features/greeting";
 import { Card, CardContent, CardHeader, CardTitle } from "@/shared";
 
 /**

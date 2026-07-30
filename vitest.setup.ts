@@ -13,16 +13,17 @@ vi.mock("next/font/google", () => ({
 // 의존하는 코드가 테스트에서 동작할 수 있도록 최소 모킹을 제공한다.
 // 기본값은 "다크 모드 선호"로 두고, 테스트에서 필요 시 재정의한다.
 if (typeof window !== "undefined" && !window.matchMedia) {
-  window.matchMedia = (query: string) => ({
-    matches: query.includes("dark"),
-    media: query,
-    onchange: null,
-    addListener: () => {},
-    removeListener: () => {},
-    addEventListener: () => {},
-    removeEventListener: () => {},
-    dispatchEvent: () => false,
-  }) as unknown as MediaQueryList;
+  window.matchMedia = (query: string) =>
+    ({
+      matches: query.includes("dark"),
+      media: query,
+      onchange: null,
+      addListener: () => {},
+      removeListener: () => {},
+      addEventListener: () => {},
+      removeEventListener: () => {},
+      dispatchEvent: () => false,
+    }) as unknown as MediaQueryList;
 }
 
 // Node.js가 실험적으로 제공하는 전역 localStorage/sessionStorage가
@@ -62,4 +63,3 @@ if (typeof window !== "undefined") {
     });
   }
 }
-

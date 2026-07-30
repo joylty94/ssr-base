@@ -13,7 +13,7 @@ describe("useDebounce", () => {
   it("delay 이전에는 이전 값을 유지하고, delay 이후 최신 값으로 갱신된다", () => {
     const { result, rerender } = renderHook(
       ({ value }) => useDebounce(value, 300),
-      { initialProps: { value: "a" } }
+      { initialProps: { value: "a" } },
     );
 
     expect(result.current).toBe("a");
@@ -33,7 +33,7 @@ describe("useDebounce", () => {
   it("delay 도중 값이 여러 번 바뀌면 마지막 값만 반영된다", () => {
     const { result, rerender } = renderHook(
       ({ value }) => useDebounce(value, 300),
-      { initialProps: { value: "a" } }
+      { initialProps: { value: "a" } },
     );
 
     rerender({ value: "ab" });

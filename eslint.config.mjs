@@ -2,6 +2,8 @@ import { defineConfig, globalIgnores } from "eslint/config";
 import nextVitals from "eslint-config-next/core-web-vitals";
 import nextTs from "eslint-config-next/typescript";
 import boundaries from "eslint-plugin-boundaries";
+// 포맷 관련 규칙은 Prettier에 맡기고 ESLint에서는 끈다(충돌 방지). 반드시 마지막에 둔다.
+import eslintConfigPrettier from "eslint-config-prettier/flat";
 
 // FSD 계층 정의 (.claude/rule/next-fsd-core.md)
 // 의존성은 위로만 흐른다: shared ← entities ← features ← widgets ← app
@@ -92,7 +94,9 @@ const eslintConfig = defineConfig([
             {
               target: {
                 element: {
-                  types: { anyOf: ["shared", "entities", "features", "widgets"] },
+                  types: {
+                    anyOf: ["shared", "entities", "features", "widgets"],
+                  },
                 },
               },
               allow: "index.ts",
@@ -110,6 +114,8 @@ const eslintConfig = defineConfig([
     "build/**",
     "next-env.d.ts",
   ]),
+  // Prettier와 충돌하는 포맷 규칙 비활성화 — 반드시 배열의 마지막.
+  eslintConfigPrettier,
 ]);
 
 export default eslintConfig;

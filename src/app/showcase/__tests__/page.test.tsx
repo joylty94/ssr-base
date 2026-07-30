@@ -8,7 +8,7 @@ function renderPage() {
   return render(
     <ThemeProvider>
       <ShowcasePage />
-    </ThemeProvider>
+    </ThemeProvider>,
   );
 }
 
@@ -17,7 +17,9 @@ describe("Showcase 페이지", () => {
     renderPage();
     expect(screen.getByRole("button", { name: "기본" })).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "삭제" })).toBeInTheDocument();
-    expect(screen.getByPlaceholderText("이메일을 입력하세요")).toBeInTheDocument();
+    expect(
+      screen.getByPlaceholderText("이메일을 입력하세요"),
+    ).toBeInTheDocument();
     expect(screen.getByText("신규")).toBeInTheDocument();
   });
 
@@ -53,8 +55,8 @@ describe("Showcase 페이지", () => {
     const { container } = renderPage();
     const showcaseRoot = container.querySelector("main");
     expect(showcaseRoot).toBeInTheDocument();
-    expect(within(showcaseRoot!).getByRole("heading", { level: 1 })).toHaveTextContent(
-      "Showcase"
-    );
+    expect(
+      within(showcaseRoot!).getByRole("heading", { level: 1 }),
+    ).toHaveTextContent("Showcase");
   });
 });

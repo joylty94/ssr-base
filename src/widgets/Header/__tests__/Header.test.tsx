@@ -10,7 +10,7 @@ describe("Header", () => {
     render(
       <ThemeProvider>
         <Header />
-      </ThemeProvider>
+      </ThemeProvider>,
     );
 
     const homeLink = screen.getByRole("link", { name: "ssr-base" });
@@ -26,7 +26,7 @@ describe("Header", () => {
     render(
       <ThemeProvider>
         <Header />
-      </ThemeProvider>
+      </ThemeProvider>,
     );
     expect(screen.getByRole("banner")).toBeInTheDocument();
   });

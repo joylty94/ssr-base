@@ -18,7 +18,7 @@ describe("DropdownMenu", () => {
         <DropdownMenuContent>
           <DropdownMenuItem onSelect={onSelect}>항목1</DropdownMenuItem>
         </DropdownMenuContent>
-      </DropdownMenu>
+      </DropdownMenu>,
     );
 
     expect(screen.queryByText("항목1")).not.toBeInTheDocument();

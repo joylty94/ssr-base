@@ -59,9 +59,10 @@
   --radius-xl: calc(var(--radius) + 4px);
   /* Pretendard를 최우선으로 하고, CDN 로드 실패/차단 시에도 레이아웃이 깨지지 않도록
      플랫폼별 한글 시스템 폰트(Apple SD Gothic Neo/Malgun Gothic)와 일반 산세리프로 폴백한다. */
-  --font-sans: "Pretendard", var(--font-geist-sans), -apple-system,
-    BlinkMacSystemFont, "Apple SD Gothic Neo", "Segoe UI", Roboto,
-    "Malgun Gothic", "Helvetica Neue", Arial, sans-serif;
+  --font-sans:
+    "Pretendard", var(--font-geist-sans), -apple-system, BlinkMacSystemFont,
+    "Apple SD Gothic Neo", "Segoe UI", Roboto, "Malgun Gothic",
+    "Helvetica Neue", Arial, sans-serif;
   --font-mono: var(--font-geist-mono);
 }
 

@@ -19,7 +19,7 @@ describe("Card", () => {
         </CardHeader>
         <CardContent>본문</CardContent>
         <CardFooter>푸터</CardFooter>
-      </Card>
+      </Card>,
     );
 
     expect(screen.getByText("제목")).toBeInTheDocument();

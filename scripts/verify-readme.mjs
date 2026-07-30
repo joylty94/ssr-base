@@ -35,19 +35,22 @@ const REQUIRED_SECTIONS = [
 for (const section of REQUIRED_SECTIONS) {
   check(
     `필수 섹션 언급 존재: "${section}"`,
-    new RegExp(section, "i").test(readme)
+    new RegExp(section, "i").test(readme),
   );
 }
 
 // README 안의 `npm run <script>` 코드 언급이 실제 package.json scripts에 있는지 확인
 const scriptMentions = [...readme.matchAll(/npm run ([\w:-]+)/g)].map(
-  (m) => m[1]
+  (m) => m[1],
 );
-check("README에 npm run 명령이 최소 1개 이상 안내됨", scriptMentions.length > 0);
+check(
+  "README에 npm run 명령이 최소 1개 이상 안내됨",
+  scriptMentions.length > 0,
+);
 for (const script of new Set(scriptMentions)) {
   check(
     `README가 안내하는 "npm run ${script}"가 package.json scripts에 존재`,
-    Boolean(pkg.scripts?.[script])
+    Boolean(pkg.scripts?.[script]),
   );
 }
 
