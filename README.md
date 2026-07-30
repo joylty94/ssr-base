@@ -245,3 +245,8 @@ npm run format:check  # 위반만 검사(CI/커밋 전 게이트)
 - [.claude/rule/next-fsd-core.md](./.claude/rule/next-fsd-core.md) — FSD 계층/의존성 규칙 원문
 - [DESIGN.md](./DESIGN.md) — 디자인 토큰(색/타이포/스페이싱), 접근성(WCAG) 대비 기준
 - [CLAUDE.md](./CLAUDE.md) — 에이전트 팀 작업 규약(브랜치/워크트리/TDD)
+
+---
+
+## 프로젝트 파일 권한
+chmod +x .claude/hooks/*.sh scripts/*.sh
