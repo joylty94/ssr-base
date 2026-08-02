@@ -20,6 +20,7 @@ import {
   Separator,
   Skeleton,
 } from "@/shared";
+import { CounterWidget } from "@/widgets/CounterWidget";
 import { GreetingWidget } from "@/widgets/GreetingWidget";
 
 export const metadata: Metadata = {
@@ -132,6 +133,16 @@ export default function ShowcasePage() {
         </p>
         <div className="max-w-sm">
           <GreetingWidget />
+        </div>
+      </section>
+
+      <section className="flex flex-col gap-4">
+        <h2 className="text-xl font-semibold">Zustand 예시 슬라이스</h2>
+        <p className="text-muted-foreground">
+          features/counter(Zustand store) → widgets/CounterWidget 체인 데모
+        </p>
+        <div className="max-w-sm">
+          <CounterWidget />
         </div>
       </section>
     </main>
