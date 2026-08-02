@@ -7,6 +7,7 @@ ensure() {  # ensure <name> <color> <desc>
 ensure "area:backend"       1D76DB "백엔드 작업"
 ensure "area:frontend"      5319E7 "프론트엔드 작업"
 ensure "area:design"        E99695 "디자인 작업"
+ensure "area:infra"         0052CC "인프라 작업"
 ensure "stage:plan-review"  0E8A16 "플랜 검토 대기"
 ensure "stage:impl"         FBCA04 "구현·테스트 대기"
 ensure "stage:qa"           D93F0B "QA 대기"

@@ -1,6 +1,6 @@
 # ssr-base
 
-AI로 여러 프로젝트를 만들 때 재사용하는 **베이스 프로젝트**입니다. Next.js(App Router) + TypeScript + Tailwind CSS + shadcn/ui 스타일 컴포넌트 + 다크/라이트 테마 + Axios + FSD(Feature-Sliced Design) 구조 + 코드 컨벤션(ESLint/Prettier) + 테스트(Vitest) 가 이미 세팅되어 있습니다. 특정 서비스의 비즈니스 로직(로그인, 게시글 등)은 포함하지 않고, **구조·공통 자산·규칙**만 제공합니다.
+AI로 여러 프로젝트를 만들 때 재사용하는 **베이스 프로젝트**입니다. Next.js(App Router) + TypeScript + Tailwind CSS + shadcn/ui 스타일 컴포넌트 + 다크/라이트 테마 + Axios + Zustand(상태 관리) + FSD(Feature-Sliced Design) 구조 + 코드 컨벤션(ESLint/Prettier) + 테스트(Vitest) 가 이미 세팅되어 있습니다. 특정 서비스의 비즈니스 로직(로그인, 게시글 등)은 포함하지 않고, **구조·공통 자산·규칙**만 제공합니다.
 
 ## 기술 스택
 
@@ -11,6 +11,7 @@ AI로 여러 프로젝트를 만들 때 재사용하는 **베이스 프로젝트
 | Theme       | `next-themes` (기본값 = 브라우저 시스템 테마, 다크/라이트 토글)        |
 | Font        | Pretendard(한글) CDN + 시스템 폰트 폴백, 영문 Geist(`next/font`)       |
 | HTTP        | Axios + 요청/응답/에러 인터셉터                                        |
+| 상태 관리   | Zustand (전역 클라이언트 상태, 슬라이스 `model` 계층에 스토어 배치)    |
 | 구조        | FSD(Feature-Sliced Design) + `eslint-plugin-boundaries` 로 경계 강제   |
 | 코드 컨벤션 | ESLint(로직·경계) + Prettier(포맷) + `prettier-plugin-tailwindcss`     |
 | 테스트      | Vitest + React Testing Library + jsdom                                 |
@@ -38,7 +39,7 @@ npm run dev          # http://localhost:3000
 
 ### 새 프로젝트 시작하기
 
-이 베이스로 새 프로젝트를 시작하려면: 저장소를 복제한 뒤 `package.json`의 `name`을 바꾸고, `src/app/layout.tsx`의 `SITE_TITLE`/`SITE_DESCRIPTION`, 예시 슬라이스(`src/app/showcase`, `src/{entities,features}/greeting`, `src/widgets/GreetingWidget`)를 프로젝트에 맞게 정리하세요.
+이 베이스로 새 프로젝트를 시작하려면: 저장소를 복제한 뒤 `package.json`의 `name`을 바꾸고, `src/app/layout.tsx`의 `SITE_TITLE`/`SITE_DESCRIPTION`, 예시 슬라이스(`src/app/showcase`, `src/{entities,features}/greeting`, `src/features/counter`, `src/widgets/{GreetingWidget,CounterWidget}`)를 프로젝트에 맞게 정리하세요.
 
 ---
 
@@ -48,7 +49,7 @@ npm run dev          # http://localhost:3000
 ssr-base/
 ├── src/
 │   ├── app/        # 라우팅·레이아웃·providers·loading/error/not-found·globals.css
-│   ├── widgets/    # features 조합(Header, Footer, GreetingWidget) — 폴더 1개 = element 1개
+│   ├── widgets/    # features 조합(Header, Footer, GreetingWidget, CounterWidget) — 폴더 1개 = element 1개
 │   ├── features/   # 비즈니스 기능(자급자족, feature끼리 임포트 금지) — 폴더 1개 = element 1개
 │   ├── entities/   # 여러 feature가 공유하는 데이터 모델 — 폴더 1개 = element 1개
 │   ├── shared/     # 모두가 쓰는 것(ui/lib) — shared 전체가 하나의 element
@@ -117,6 +118,22 @@ ssr-base/
 4. **app**에서 위젯을 조합해 라우트 구성: `import { X } from "@/widgets/X"`.
 
 각 단계는 **먼저 실패하는 테스트(Red)** 부터 작성합니다(§4 테스트 전략).
+
+### 상태 관리(Zustand)
+
+전역 클라이언트 상태는 **Zustand**로 관리합니다. 스토어는 그 상태를 소유한 **슬라이스의 `model` 계층**에 둡니다(전역으로 공유되는 상태가 아니라면 `shared`로 올리지 않습니다). 예시: `src/features/counter`.
+
+```
+features/counter/
+├── model/useCounterStore.ts   # create<State>()(...) — count/increment/decrement/reset
+├── ui/Counter.tsx             # "use client" + selector 구독 → useCounterStore((s) => s.count)
+└── index.ts                   # public API (Counter, useCounterStore, CounterState)
+```
+
+- **컴포넌트는 selector로 구독**해 필요한 값만 리렌더 대상으로 삼습니다: `useCounterStore((s) => s.count)`.
+- Zustand 구독은 클라이언트에서만 동작하므로 스토어를 읽는 컴포넌트에는 `"use client"`를 붙입니다(위젯/Card 같은 상위는 서버 컴포넌트로 유지 가능).
+- 모듈 전역 싱글턴이라 **초기값이 요청에 의존하지 않을 때만 안전**합니다. 요청별 데이터(세션 등)로 초기화해야 하면 Context + 요청별 store 생성 패턴을 쓰세요(자세한 주의는 `useCounterStore.ts` 주석 참고).
+- 위젯 조합 예시는 `src/widgets/CounterWidget`, 데모는 `/showcase`에서 확인할 수 있습니다.
 
 ---
 
@@ -235,6 +252,7 @@ npm run format:check  # 위반만 검사(CI/커밋 전 게이트)
 | 테마 프로바이더/토글, 기본 테마 | `src/shared/ui/theme/*` — `defaultTheme`(기본 `"system"`)                                                                                            |
 | 한글/영문 폰트                  | `globals.css`의 Pretendard `@import`·`--font-sans`, `layout.tsx`의 `next/font`(Geist)                                                                |
 | Axios(헤더·baseURL·에러)        | `src/shared/lib/api/{client,errors,types}.ts`                                                                                                        |
+| 상태 관리(Zustand) 스토어       | 해당 슬라이스의 `model/` 계층(예: `src/features/counter/model/useCounterStore.ts`) — 전역 공유 상태만 상위로                                         |
 | shadcn 컴포넌트 추가            | `src/shared/ui/<컴포넌트>.tsx` 작성 → `src/shared/ui/index.ts`에 `export * from "./<컴포넌트>"` → 테스트 작성. Radix/state 쓰면 `"use client";` 필수 |
 | 사이트 메타                     | `src/app/layout.tsx`의 `SITE_TITLE`/`SITE_DESCRIPTION`                                                                                               |
 
@@ -249,11 +267,12 @@ npm run format:check  # 위반만 검사(CI/커밋 전 게이트)
 ---
 
 ## 프로젝트 파일 권한
-chmod +x .claude/hooks/*.sh scripts/*.sh
 
-## projecs progress 
+chmod +x .claude/hooks/_.sh scripts/_.sh
+
+## projecs progress
+
 1. gh auth status 확인
 2. token 발행
 3. 저장소에 token 설정
 4. ./scripts/link-project-status.sh <1단계에서 확인한 프로젝트 번호>
-

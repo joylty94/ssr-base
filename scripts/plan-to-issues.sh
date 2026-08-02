@@ -13,6 +13,7 @@ while IFS='|' read -r role title body key depends_on; do
     backend)  area="area:backend";;
     frontend) area="area:frontend";;
     design)   area="area:design";;
+    infra)    area="area:infra";;
     *) echo "skip unknown role: $role" >&2; continue;;
   esac
 

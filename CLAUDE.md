@@ -14,8 +14,8 @@
 - 베이스 브랜치는 `dev` (원격에 미리 있어야 함). 모든 feature 브랜치는 `dev`에서 갈라져서 `dev`로만 머지된다.
 - 브랜치 이름 규칙: `feature/<역할>-<이슈번호>` (예: `feature/backend-42`)
 - 역할마다 자기 전용 워크트리 폴더를 쓴다: `.claude/worktrees/backend`, `.claude/worktrees/frontend`,
-  `.claude/worktrees/design`, `.claude/worktrees/qa`. 같은 폴더를 여러 팀원이 공유하지 않는다(각자 자기 것만 사용).
-- backend/frontend/designer: 이슈를 claim 하면 가장 먼저 `./scripts/start-branch.sh <역할> <n>` 로
+  `.claude/worktrees/design`, `.claude/worktrees/infra`, `.claude/worktrees/qa`. 같은 폴더를 여러 팀원이 공유하지 않는다(각자 자기 것만 사용).
+- backend/frontend/designer/infra: 이슈를 claim 하면 가장 먼저 `./scripts/start-branch.sh <역할> <n>` 로
   자기 워크트리를 준비하고 `dev` 기준 새 브랜치를 만든다. **이후 모든 파일 작업(Read/Edit/Write)과 테스트 실행은
   `.claude/worktrees/<역할>/` 안에서** 한다 (예: `.claude/worktrees/backend/src/auth.ts`).
 - 구현·테스트가 끝나면 브랜치를 push 하고 `dev`를 대상으로 PR을 연다. PR 링크를 이슈 댓글로 남기고 QA에게 인계한다.
@@ -32,6 +32,7 @@
 - backend : gh issue list --label "area:backend" --label "stage:impl"
 - frontend : gh issue list --label "area:frontend" --label "stage:impl"
 - designer : gh issue list --label "area:design" --label "stage:impl"
+- infra         : gh issue list --label "area:infra"    --label "stage:impl"
 - qa : gh issue list --label "stage:qa"
 
 ## 공통 루프
@@ -91,6 +92,29 @@
 3. 브랜치를 push하고 PR을 연다(위 backend/frontend 5번과 동일한 방식).
    `gh issue edit <n> --remove-label "stage:impl" --add-label "stage:qa"` → qa 에게 인계.
    ※ 여기서 '구현'=산출물 작성, '테스트'=디자인 리뷰. 코드 대신 문서/에셋을 이슈에 링크. close·머지 금지.
+
+## infra  — TDD 비대상, 드라이런·정적 검증 위주(인프라 아키텍처·배포·CI 설정 담당)
+0. ./scripts/start-branch.sh infra <n>  → .claude/worktrees/infra/ 에 dev 기준 feature/infra-<n> 브랜치 준비
+   이후 모든 Read/Edit/Write와 검증 실행은 이 워크트리 폴더 안에서 한다.
+1. gh issue view <n> --comments 로 plan-review 합의사항 확인
+2. ./scripts/issue-log.sh <n> implement start "무엇을 구축·변경할지(대상 리소스·설정 파일 범위)"
+   → IaC/배포/CI 설정 작성 또는 수정 (Terraform, Dockerfile, docker-compose, GitHub Actions 워크플로우 등
+     프로젝트가 실제로 쓰는 도구 기준 — gstack에는 인프라 전용 스킬이 없으므로 아래 gstack 스킬로 보완)
+   → ./scripts/issue-log.sh <n> implement done
+3. ./scripts/issue-log.sh <n> test start "무엇을 검증할지(체크 항목)"
+   → 실제 인프라에 반영하기 전 드라이런/정적 검증으로만 확인한다(예: terraform validate && terraform plan,
+     docker build, docker compose config, CI yml 문법 검사). **실제 apply·배포는 여기서 하지 않는다** —
+     변경안을 만들고 드라이런까지만 하고, 실제 반영은 QA 통과 후 별도 배포 절차(프로젝트마다 다르므로 리더와
+     상의)에서 진행한다.
+   → ./scripts/issue-log.sh <n> test done  (드라이런 실패가 남으면 done 호출 금지, 2번으로)
+4. 브랜치를 push하고 PR을 연다(위 backend/frontend 5번과 동일한 방식).
+   `gh issue edit <n> --remove-label "stage:impl" --add-label "stage:qa"` → qa 에게 인계.
+   ※ close·머지 금지(머지는 QA 담당). gstack: 모호하면 /spec, IAM·시크릿·네트워크 노출처럼 보안에 민감한
+     설정은 /cso 로 자가점검, 구현 후 /review 로 자가점검.
+5. QA가 반려하면(라벨이 다시 stage:impl + blocked로 옴) 같은 브랜치/워크트리에서 계속 수정하고,
+   커밋 후 다시 push. 브랜치를 새로 만들지 않는다.
+   ※ 각 단계의 note는 항상 start에 적는다 — designer와 동일하게 test-plan 단계 없이 implement→test 2단계로
+     진행한다(§「공통 규칙」 note 배치 원칙 동일 적용).
 
 ## qa (브랜치 작업 상세는 §9-2 참고)
 

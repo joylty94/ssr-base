@@ -31,6 +31,7 @@ check_segment() {
     *".claude/worktrees/backend"*)  role="backend";;
     *".claude/worktrees/frontend"*) role="frontend";;
     *".claude/worktrees/design"*)   role="design";;
+    *".claude/worktrees/infra"*)    role="infra";;
   esac
 
   local sub="${words[$k]:-}"
@@ -42,6 +43,7 @@ check_segment() {
     backend)  allow='^(dev|feature/backend-[0-9]+)$';;
     frontend) allow='^(dev|feature/frontend-[0-9]+)$';;
     design)   allow='^(dev|feature/design-[0-9]+)$';;
+    infra)    allow='^(dev|feature/infra-[0-9]+)$';;
     root)     allow='^dev$';;
   esac
 
