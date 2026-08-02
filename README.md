@@ -250,3 +250,10 @@ npm run format:check  # 위반만 검사(CI/커밋 전 게이트)
 
 ## 프로젝트 파일 권한
 chmod +x .claude/hooks/*.sh scripts/*.sh
+
+## projecs progress 
+1. gh auth status 확인
+2. token 발행
+3. 저장소에 token 설정
+4. ./scripts/link-project-status.sh <1단계에서 확인한 프로젝트 번호>
+
